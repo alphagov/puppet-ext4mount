@@ -17,7 +17,7 @@
 define ext4mount (
   $mountpoint,
   $disk,
-  $mountoptions = 'errors=remount-ro'
+  $mountoptions
 ) {
 
   mount { "mount-${mountpoint}":
