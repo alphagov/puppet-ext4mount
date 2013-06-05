@@ -31,7 +31,7 @@ define ext4mount (
     device  => $disk,
     fstype  => 'ext4',
     options => $mountoptions,
-    require => [Exec["disk-${disk}-exists"],Exec["create-${mountpoint}"],
+    require => [Exec["disk-${disk}-exists"],Exec["create-${mountpoint}"]],
   }
 
   # yes we know that this has no conditional "onlyif" or similar clause
