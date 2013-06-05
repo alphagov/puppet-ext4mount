@@ -34,10 +34,8 @@ define ext4mount (
     require => [Exec["disk-${disk}-exists"],Exec["create-${mountpoint}"]],
   }
 
-  # yes we know that this has no conditional "onlyif" or similar clause
-  # that's because the exec command is already inherently idempotent
-  # -- @philandstuff and @rjw1 20130604
   exec { "disk-${disk}-exists":
-    command => "/sbin/e2label ${disk}"
+    command => "/sbin/e2label ${disk}",
+    onlyif  => "/bin/mount | /bin/grep -q ${disk}",
   }
 }
