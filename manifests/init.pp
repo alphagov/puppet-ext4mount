@@ -6,6 +6,7 @@
 # == Parameters
 # [*mountpoint*]
 #   Full path to the mount point. This will be created with 'mkdir -p' if it doesn't already exist.
+#   namevar: this defaults to the resource title if unspecified.
 #
 # [*disk*]
 #   Full path to the disk to mount.
