@@ -15,9 +15,9 @@
 
 #
 define ext4mount (
-  $mountpoint,
   $disk,
-  $mountoptions
+  $mountoptions,
+  $mountpoint = $title
 ) {
 
   exec { "create-${mountpoint}":
