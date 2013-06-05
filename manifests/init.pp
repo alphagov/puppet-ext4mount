@@ -5,10 +5,10 @@
 #
 # == Parameters
 # [*mountpoint*]
-#   Full path to the mount point
+#   Full path to the mount point. This will be created with 'mkdir -p' if it doesn't already exist.
 #
 # [*disk*]
-#   Full path to the disk to mount
+#   Full path to the disk to mount.
 #
 # [*mountoptions*]
 #   mount options to be added to the fstab line.
@@ -20,13 +20,18 @@ define ext4mount (
   $mountoptions
 ) {
 
+  exec { "create-${mountpoint}":
+    command => "/bin/mkdir -p ${mountpoint}",
+    creates => $mountpoint,
+  }
+
   mount { "mount-${mountpoint}":
     ensure  => mounted,
     name    => $mountpoint,
     device  => $disk,
     fstype  => 'ext4',
     options => $mountoptions,
-    require => Exec["disk-${disk}-exists"],
+    require => [Exec["disk-${disk}-exists"],Exec["create-${mountpoint}"],
   }
 
   # yes we know that this has no conditional "onlyif" or similar clause
