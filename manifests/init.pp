@@ -36,6 +36,6 @@ define ext4mount (
 
   exec { "disk-${disk}-exists":
     command => "/sbin/e2label ${disk}",
-    onlyif  => "/bin/mount | /bin/grep -q ${disk}",
+    unless  => "/bin/mount | /bin/grep -q ${disk}",
   }
 }
